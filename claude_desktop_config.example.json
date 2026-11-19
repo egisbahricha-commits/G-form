@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "assesscraft-universal-remote": {
+      "type": "streamable-http",
+      "url": "https://YOUR_DEPLOYED_HTTPS_DOMAIN/mcp"
+    },
+    "assesscraft-universal-local-stdio": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/PROJECT/src/mcp/stdio.ts"],
+      "env": {
+        "GEMINI_API_KEY": "YOUR_GEMINI_API_KEY"
+      }
+    }
+  }
+}

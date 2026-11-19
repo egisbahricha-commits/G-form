@@ -1,0 +1,17 @@
+{
+  "name": "assesscraft-skill",
+  "version": "2.0.0",
+  "description": "Suite skill agen otonom Claude untuk membaca materi multimodal (foto, PDF, DOCX, PPTX, teks), membuat soal universal, memvalidasi kualitas & kunci jawaban, dan menerbitkan langsung ke Google Forms via OAuth 2.0.",
+  "author": {
+    "name": "AssessCraft Universal"
+  },
+  "license": "MIT",
+  "mcpServers": "./.mcp.json",
+  "skills": [
+    "./skills/assesscraft-form-builder",
+    "./skills/assesscraft-material-reader",
+    "./skills/assesscraft-question-engine",
+    "./skills/assesscraft-quality-auditor",
+    "./skills/assesscraft-google-forms"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "assesscraft-skill",
+  "owner": {
+    "name": "AssessCraft Universal"
+  },
+  "metadata": {
+    "description": "Suite Agent Skill pembuat soal universal dan Google Forms otomatis berbasis Gemini & Remote MCP.",
+    "version": "2.0.0"
+  },
+  "plugins": [
+    {
+      "name": "assesscraft-skill",
+      "source": "./",
+      "description": "Mengubah foto catatan, PDF, DOCX, PPTX, atau teks materi menjadi kuis Google Forms lengkap dengan kunci jawaban, pembahasan, dan bobot poin.",
+      "version": "2.0.0",
+      "skills": [
+        "./skills/assesscraft-form-builder",
+        "./skills/assesscraft-material-reader",
+        "./skills/assesscraft-question-engine",
+        "./skills/assesscraft-quality-auditor",
+        "./skills/assesscraft-google-forms"
+      ]
+    }
+  ]
+}

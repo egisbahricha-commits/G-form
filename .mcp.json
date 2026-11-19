@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "assesscraft-universal": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/skills/assesscraft-form-builder/scripts/assesscraft-mcp.mjs"
+      ]
+    }
+  }
+}

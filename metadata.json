@@ -1,0 +1,6 @@
+{
+  "name": "AssessCraft Universal",
+  "description": "Universal multimodal AI assessment & Google Form builder powered by Gemini API and Claude MCP Server.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
