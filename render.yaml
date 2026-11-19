@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: assesscraft-universal-mcp
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: PORT
+        value: "3000"
+      - key: GEMINI_API_KEY
+        sync: false

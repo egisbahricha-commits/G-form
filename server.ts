@@ -49,7 +49,7 @@ import type { ExamQuestion, GenerationConfig, ParticipantIdentityConfig } from '
 const PORT = Number(process.env.PORT || 3000);
 
 function getPublicBaseUrl(req: Request): string {
-  const envUrl = process.env.APP_URL;
+  const envUrl = process.env.APP_URL || process.env.RENDER_EXTERNAL_URL;
   if (envUrl && envUrl !== 'MY_APP_URL' && /^https?:\/\//i.test(envUrl)) {
     return envUrl.replace(/\/+$/, '');
   }

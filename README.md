@@ -22,9 +22,20 @@ npx skills add <LINK_GITHUB_REPO_ANDA>
 ```
 Skill ini membawa `scripts/extract-material.mjs` dan `scripts/publish-google-form.mjs` siap jalan dengan Node.js 20+ tanpa instalasi paket tambahan.
 
-### 3. Claude.ai (Web / Desktop / Mobile)
-1. Unduh **`assesscraft-form-builder.zip`** dari tab **Remote MCP Hub** (`GET /api/skills/download?skill=assesscraft-form-builder`), lalu unggah di **Claude.ai → Customize / Settings → Skills → Upload skill**.
-2. Untuk ekspor langsung ke Google Forms dari `claude.ai`, deploy server ini ke HTTPS publik (mis. Google Cloud Run) dan tambahkan `https://<DOMAIN_ANDA>/mcp` di **Claude.ai → Settings → Connectors**.
+### 3. Claude.ai (Web / Aplikasi HP Android & iOS)
+Di `claude.ai`, Skill `.zip` hanya berisi instruksi—agar Claude di HP Anda bisa **langsung membuat Google Form otomatis tanpa `script.google.com`**, Anda perlu menyambungkan **1 URL Remote MCP (`/mcp`)** yang aktif di internet publik:
+
+1. **Unggah Skill**: Unduh **`assesscraft-form-builder.zip`** dari tab **Remote MCP Hub** (`GET /api/skills/download?skill=assesscraft-form-builder`), lalu unggah di **Claude.ai → Settings / Customize → Skills → Upload skill**.
+2. **Deploy Remote MCP Gratis (Bisa dari Browser HP, ~2 menit)**:
+   - Push repo ini ke GitHub (sudah berisi `Dockerfile` & `render.yaml`).
+   - Buka **render.com** (login dengan GitHub) → **New +** → **Blueprint** (atau **Web Service** dari repo GitHub Anda, pilih plan **Free**).
+   - Masukkan environment variable `GEMINI_API_KEY`, lalu klik **Deploy** hingga muncul URL publik `https://<nama-layanan>.onrender.com`.
+3. **Izinkan Domain di Firebase Auth**:
+   - Buka **Firebase Console** (project `gen-lang-client-0032130105`) → **Authentication → Settings → Authorized domains** → tambahkan `<nama-layanan>.onrender.com`.
+4. **Sambungkan ke `claude.ai`**:
+   - Buka **Claude.ai → Settings → Connectors → Add custom connector** → masukkan `https://<nama-layanan>.onrender.com/mcp`.
+   - Buka `https://<nama-layanan>.onrender.com/connect` di HP → klik **Sign in with Google**.
+   - Selesai! Sekarang dari aplikasi Claude di HP, setiap permintaan buat soal akan **langsung masuk menjadi Google Form di akun Anda**.
 
 ---
 
