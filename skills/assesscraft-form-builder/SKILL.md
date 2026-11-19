@@ -89,7 +89,12 @@ Once the user approves:
   3. The script automatically opens `http://localhost:<port>/connect` (and prints the URL to stderr) for 1-click Google Sign-In (`forms.body` OAuth 2.0), creates the Google Form quiz (`isQuiz: true`), inserts all questions/keys/points/explanations, and prints JSON containing `responderUri` and `editUrl`.
   4. Present both links clearly to the user.
 
-- **Option C — `claude.ai` Web Sandbox Without Remote MCP**:
-  - Remind the user they can attach the Remote MCP Connector (`/mcp`) for 1-click automatic creation, or provide a ready-to-run Google Apps Script (`Code.gs`) using `FormApp.create(...)` so they can create the exact quiz in 10 seconds at `script.google.com`.
+- **Option C — `claude.ai` Web Sandbox Without Remote MCP (`script.google.com` Fallback)**:
+  - Clarify honestly that `claude.ai` cannot directly log into or click Run inside `script.google.com` in the user's browser without Remote MCP.
+  - Generate a ready-to-run `Code.gs` using the bundled script (if bash is available in Claude's sandbox):
+    ```bash
+    node "<skill-dir>/scripts/generate-apps-script.mjs" --input /tmp/assesscraft-exam.json --out /tmp/Code.gs
+    ```
+  - Provide the generated `Code.gs` (plus the 4-step instructions in [references/apps-script-template.md](references/apps-script-template.md)) so the user only pastes into `https://script.google.com` and clicks **Run** to create the quiz form immediately. Also note they can connect Remote MCP (`/mcp`) for 100% automatic creation without `script.google.com`.
 
-See [references/mcp-workflow.md](references/mcp-workflow.md) and [references/google-forms-and-oauth.md](references/google-forms-and-oauth.md) for full schemas.
+See [references/mcp-workflow.md](references/mcp-workflow.md), [references/google-forms-and-oauth.md](references/google-forms-and-oauth.md), and [references/apps-script-template.md](references/apps-script-template.md) for full schemas.

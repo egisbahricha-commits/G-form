@@ -23,6 +23,10 @@ const entries = [
     in: 'src/cli/extractMaterialCli.ts',
     out: path.join(outDir, 'extract-material.mjs'),
   },
+  {
+    in: 'src/cli/generateAppsScriptCli.ts',
+    out: path.join(outDir, 'generate-apps-script.mjs'),
+  },
 ];
 
 for (const entry of entries) {

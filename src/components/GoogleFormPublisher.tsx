@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import {
   Check,
   CheckCircle2,
+  Code2,
   Copy,
+  Download,
   ExternalLink,
   FileCheck2,
   FlaskConical,
@@ -16,6 +18,7 @@ import {
 } from 'lucide-react';
 import type { User } from 'firebase/auth';
 import { verifyGoogleTokenStatus, type GoogleTokenStatusResponse } from '../lib/api';
+import { generateAppsScriptCode } from '../shared/appsScriptGenerator';
 import type {
   ExamSession,
   GoogleFormResult,
@@ -106,6 +109,32 @@ export const GoogleFormPublisher: React.FC<GoogleFormPublisherProps> = ({
     await navigator.clipboard.writeText(value);
     setCopiedField(label);
     setTimeout(() => setCopiedField(null), 1800);
+  };
+
+  const buildAppsScriptText = () =>
+    generateAppsScriptCode({
+      title: title.trim() || session.title,
+      description: description.trim() || session.description,
+      includeParticipantIdentity:
+        identity.includeFullName ||
+        identity.includeParticipantId ||
+        identity.includeClassOrOrg ||
+        (identity.customFields?.length || 0) > 0,
+      participantIdentity: identity,
+      questions: session.questions,
+    });
+
+  const handleDownloadAppsScript = () => {
+    const code = buildAppsScriptText();
+    const blob = new Blob([code], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Code.gs';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
   };
 
   const handleAddCustomField = () => {
@@ -507,6 +536,47 @@ export const GoogleFormPublisher: React.FC<GoogleFormPublisherProps> = ({
               </dd>
             </div>
           </dl>
+        </div>
+
+        <div className="bg-white border border-slate-200 rounded-xl p-6 space-y-3">
+          <div className="flex items-center gap-2">
+            <Code2 className="w-4 h-4 text-blue-700 shrink-0" />
+            <h3 className="text-sm font-semibold text-slate-900">
+              Ekspor Alternatif via script.google.com (Code.gs)
+            </h3>
+          </div>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            Ingin menjalankan langsung di <span className="font-mono">script.google.com</span>? Salin atau unduh <span className="font-mono">Code.gs</span> siap pakai, tempel di proyek Apps Script baru, lalu klik <strong>Run</strong>.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <button
+              type="button"
+              disabled={session.questions.length === 0}
+              onClick={() => void handleCopy('apps-script', buildAppsScriptText())}
+              className="flex-1 min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-800 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 disabled:opacity-50"
+            >
+              {copiedField === 'apps-script' ? (
+                <>
+                  <Check className="w-3.5 h-3.5 text-emerald-700" />
+                  Code.gs Tersalin
+                </>
+              ) : (
+                <>
+                  <Copy className="w-3.5 h-3.5" />
+                  Salin Code.gs
+                </>
+              )}
+            </button>
+            <button
+              type="button"
+              disabled={session.questions.length === 0}
+              onClick={handleDownloadAppsScript}
+              className="flex-1 min-h-[40px] inline-flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold text-blue-800 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 disabled:opacity-50"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Unduh Code.gs
+            </button>
+          </div>
         </div>
 
         {session.googleForm && (
